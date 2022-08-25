@@ -16,13 +16,22 @@ class ToDoController extends Controller
      *
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index()
     {
+
+        // $students = ToDo::all();
+        // return response()->json([
+        //     'status'=> 200,
+        //     'students'=>$students,
+        // ]);
         $ToDos = ToDo::all()->map(fn(ToDo $toDo) => new ToDoResource($toDo));
+
         return response()->json([
-            "success" => true,
-            "message" => "ToDo List",
-            "data" => $ToDos
+            // "success" => true,
+            // "message" => "ToDo List",
+            // "data" => $ToDos,
+            'status'   => 200,
+            'students' => $ToDos,
         ]);
     }
     /**
@@ -33,6 +42,7 @@ class ToDoController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        // var_dump($request);
         $input = $request->all();
         $validator = Validator::make($input, [
             'title' => 'required',
@@ -100,16 +110,37 @@ class ToDoController extends Controller
      * @param ToDo $ToDo
      * @return JsonResponse
      */
-    public function destroy(ToDo $ToDo): JsonResponse
-    {
-        $ToDo->delete();
-        return response()->json([
-            "success" => true,
-            "message" => "ToDo deleted successfully.",
-            "data" => $ToDo
-        ]);
-    }
+    // public function destroy(ToDo $ToDo): JsonResponse
+    // {
+    //     $ToDo->delete();
+    //     print $ToDo;
+    //     return response()->json([
+    //         "success" => true,
+    //         'status'=> 200,
+    //         "message" => "ToDo deleted successfully.",
+    //         "data" => $ToDo
+    //     ]);
+    // }
 
+    public function destroy($id)
+    {
+        $student = ToDo::find($id);
+        if($student)
+        {
+            $student->delete();
+            return response()->json([
+                'status'=> 200,
+                'message'=>'Student Deleted Successfully',
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=> 404,
+                'message' => 'No Student ID Found',
+            ]);
+        }
+    }
     /**
      * @param string $message
      * @return JsonResponse

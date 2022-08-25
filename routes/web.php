@@ -28,4 +28,13 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/todolist', function () {
+    return Inertia::render('TodoList');
+})->name('todolist');
+
+Route::get('/addtodo', function () {
+    //$categories = Category::all();
+    return Inertia::render('AddTodo');
+})->name('addtodo');
+
 require __DIR__.'/auth.php';
