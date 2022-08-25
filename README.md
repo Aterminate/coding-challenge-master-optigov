@@ -1,4 +1,4 @@
-First, tou need to install the composer by
+First, you need to install the composer by
 
 composer install
 
