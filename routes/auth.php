@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\ToDoController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -55,9 +56,20 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
 
-    Route::post('posttodo', [ToDoController::class, 'store']);
+    /*****************************************************/
+    /***              Routes related to todos         ***/
+    /****************************************************/
 
+    Route::post('posttodo', [ToDoController::class, 'store']);
     Route::get('/todos', [ToDoController::class, 'index'])->name('tododata');
     Route::delete('delete-student/{id}', [ToDoController::class, 'destroy']);
+
+    /*****************************************************/
+    /*****************************************************/
+    /*****************************************************/
+
+    Route::get('/categories', [CategoryController::class, 'index'])->name('category');
+
+
 
 });

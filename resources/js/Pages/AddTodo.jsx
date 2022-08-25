@@ -1,22 +1,54 @@
-import React, { useState  } from 'react';
+import React, { useState, useEffect  } from 'react';
 import Authenticated from '@/Layouts/Authenticated';
 import { Head,Link } from '@inertiajs/inertia-react';
 import axios from 'axios';
 import swal from 'sweetalert';
 
-const Categories = [
-  { label: "Urgent", value: 1 },
-  { label: "Medium", value: 2 },
-  { label: "Unimportant", value: 3 }
-];
+// const Categories = [
+//   { label: "Urgent", value: 1 },
+//   { label: "Medium", value: 2 },
+//   { label: "Unimportant", value: 3 }
+// ];
 export default function AddTodo(props) {
 
+    const [loading, setLoading] = useState(true);
     const [category_id,setCategory] = useState("");
     const [title,setTitle]          = useState("");
+    const [categorieslist, setCategoriesList] = useState([]);
 
-    // const options = array();
+    useEffect(() => {
 
-     function submitCall(e) {
+        axios.get('http://127.0.0.1:8000/categories').then(res=>{
+            if(res.status === 200)
+            {
+                console.log(res.data.category);
+                setCategoriesList(res.data.category)
+                setLoading(false);
+            }
+        });
+
+    }, []);
+
+    if(loading)
+    {
+        return <h4>Loading Student Data...</h4>
+    }
+    else
+    {
+        var category_HTMLTABLE = "";
+        console.log(categorieslist);
+        // category_HTMLTABLE = categorieslist.map( (item, index) => {
+        //     console.log(item);
+        //     return (
+        //         <option value={item.id}>
+        //             {item.name}
+        //         </option>
+        //     );
+        // });
+
+    }
+
+    function submitCall(e) {
         e.preventDefault();
         if(!setCategory || !setTitle){
             alert('Category or Title cannot be blank');
@@ -30,7 +62,7 @@ export default function AddTodo(props) {
                         swal("Success!",res.data.message,"success");
                         setTitle('');
                         setCategory('');
-                        //Redirect to another route
+                        // Redirect to another route
                         window.location.href = "/todolist";
                     }
                 });
@@ -71,13 +103,19 @@ export default function AddTodo(props) {
                                                 value={category_id}
                                                 onChange={(e) => setCategory(e.target.value)}
                                                 className='form-control'>
-                                                <option selected value="1">Urgent</option>
+                                                {/* <option selected value="1">Urgent</option>
                                                 <option value="2">Medium</option>
-                                                <option value="3">Unimportant</option>
+                                                <option value="3">Unimportant</option> */}
+                                                {categorieslist.map((option, index) => (
+                                                    <option  value={option.id}>
+                                                    {option.name}
+                                                    </option>
+                                                ))}
                                             </select>
                                             {/* <select id="category_id" onChange={(e) => setCategory(e.target.value)} >
                                                  <option value="1"> dsds </option></select> */}
-                                            </div>
+                                        </div>
+
                                         <div className='form-group mb-3'>
                                             <label>Title</label>
                                             <input type="text" id="title"  onChange={(e) => setTitle(e.target.value)} value={title} className='form-control' />

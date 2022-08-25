@@ -22,7 +22,7 @@ class CategoryController extends Controller
         return response()->json([
             "success" => true,
             "message" => "Category List",
-            "data" => $categories
+            "category" => $categories
         ]);
     }
     /**
