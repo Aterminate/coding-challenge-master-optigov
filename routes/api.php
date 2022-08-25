@@ -16,5 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource("todo", ToDoController::class);
-Route::resource("category", CategoryController::class);
+// Route::resource("todo", ToDoController::class);
+// Route::resource("category", CategoryController::class);
+
+/*****************************************************/
+/***              Routes related to category         ***/
+/****************************************************/
+
+Route::get('/categories', [CategoryController::class, 'index'])->name('category');

@@ -56,9 +56,11 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
 
-    /*****************************************************/
-    /***              Routes related to todos         ***/
-    /****************************************************/
+
+
+   /*****************************************************/
+   /***              Routes related to todos         ***/
+   /****************************************************/
 
     Route::post('posttodo', [ToDoController::class, 'store']);
     Route::get('/todos', [ToDoController::class, 'index'])->name('tododata');
@@ -67,8 +69,6 @@ Route::middleware('auth')->group(function () {
     /*****************************************************/
     /*****************************************************/
     /*****************************************************/
-
-    Route::get('/categories', [CategoryController::class, 'index'])->name('category');
 
 
 

@@ -14,8 +14,8 @@ export default function ToDoList(props) {
         axios.get('http://127.0.0.1:8000/todos').then(res=>{
             if(res.status === 200)
             {
-                console.log(res.data.students);
-                setStudents(res.data.students)
+                console.log(res.data.todos);
+                setStudents(res.data.todos)
                 setLoading(false);
             }
         });

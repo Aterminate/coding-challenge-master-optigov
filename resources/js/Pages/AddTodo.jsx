@@ -4,11 +4,6 @@ import { Head,Link } from '@inertiajs/inertia-react';
 import axios from 'axios';
 import swal from 'sweetalert';
 
-// const Categories = [
-//   { label: "Urgent", value: 1 },
-//   { label: "Medium", value: 2 },
-//   { label: "Unimportant", value: 3 }
-// ];
 export default function AddTodo(props) {
 
     const [loading, setLoading] = useState(true);
@@ -17,8 +12,8 @@ export default function AddTodo(props) {
     const [categorieslist, setCategoriesList] = useState([]);
 
     useEffect(() => {
-
-        axios.get('http://127.0.0.1:8000/categories').then(res=>{
+        // fetch categories via api
+        axios.get('http://127.0.0.1:8000/api/categories').then(res=>{
             if(res.status === 200)
             {
                 console.log(res.data.category);
@@ -28,23 +23,14 @@ export default function AddTodo(props) {
         });
 
     }, []);
-
+    // check
     if(loading)
     {
-        return <h4>Loading Student Data...</h4>
+        // return <h4>Loading Student Data...</h4>
     }
     else
     {
-        var category_HTMLTABLE = "";
         console.log(categorieslist);
-        // category_HTMLTABLE = categorieslist.map( (item, index) => {
-        //     console.log(item);
-        //     return (
-        //         <option value={item.id}>
-        //             {item.name}
-        //         </option>
-        //     );
-        // });
 
     }
 
@@ -67,17 +53,6 @@ export default function AddTodo(props) {
                     }
                 });
 
-
-            //   const res = await axios.post('http://127.0.0.1:8000/posttodo',Post);
-            //   if(res.data.status === 200)
-            //   {
-            //       //   console.log(res.data.message);
-            //       //   this.setTitle('');
-            //       //   this.setCategory('');
-            //       //   history.push('/todolist');
-            //       swal("Success!",res.data.message,"success");
-            //     //   history.push('/todolist');
-            //   }
         }
     }
 
@@ -103,17 +78,12 @@ export default function AddTodo(props) {
                                                 value={category_id}
                                                 onChange={(e) => setCategory(e.target.value)}
                                                 className='form-control'>
-                                                {/* <option selected value="1">Urgent</option>
-                                                <option value="2">Medium</option>
-                                                <option value="3">Unimportant</option> */}
                                                 {categorieslist.map((option, index) => (
                                                     <option  value={option.id}>
                                                     {option.name}
                                                     </option>
                                                 ))}
                                             </select>
-                                            {/* <select id="category_id" onChange={(e) => setCategory(e.target.value)} >
-                                                 <option value="1"> dsds </option></select> */}
                                         </div>
 
                                         <div className='form-group mb-3'>

@@ -19,19 +19,11 @@ class ToDoController extends Controller
     public function index()
     {
 
-        // $students = ToDo::all();
-        // return response()->json([
-        //     'status'=> 200,
-        //     'students'=>$students,
-        // ]);
         $ToDos = ToDo::all()->map(fn(ToDo $toDo) => new ToDoResource($toDo));
 
         return response()->json([
-            // "success" => true,
-            // "message" => "ToDo List",
-            // "data" => $ToDos,
             'status'   => 200,
-            'students' => $ToDos,
+            'todos' => $ToDos,
         ]);
     }
     /**
@@ -110,17 +102,6 @@ class ToDoController extends Controller
      * @param ToDo $ToDo
      * @return JsonResponse
      */
-    // public function destroy(ToDo $ToDo): JsonResponse
-    // {
-    //     $ToDo->delete();
-    //     print $ToDo;
-    //     return response()->json([
-    //         "success" => true,
-    //         'status'=> 200,
-    //         "message" => "ToDo deleted successfully.",
-    //         "data" => $ToDo
-    //     ]);
-    // }
 
     public function destroy($id)
     {
